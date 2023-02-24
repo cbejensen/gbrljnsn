@@ -1,28 +1,9 @@
-// import { builderSSR } from './builder.ssr';
 import { builder } from '@builder.io/sdk';
 import React from 'react';
 
-import { MyCustomComponent } from './builder-test';
+import { BuilderClient } from './builder-client';
 
-builder.init(process.env.BUILDER_IO_KEY as string);
-
-// const getPage = async ({ params }) => {
-//   const urlPath = Array.isArray(params?.page)
-//     ? params?.page.join('/')
-//     : params?.page ?? '';
-
-//   // Fetch the builder content
-//   const page = await builder
-//     .get('page', { userAttributes: { urlPath } })
-//     .toPromise();
-
-//   return {
-//     props: {
-//       page: page || null,
-//     },
-//     revalidate: 5,
-//   };
-// };
+builder.init(process.env.NEXT_PUBLIC_BUILDER_IO_KEY as string);
 
 export async function generateStaticParams() {
   const pages = await builder.getAll('page', {
@@ -35,11 +16,13 @@ export async function generateStaticParams() {
         if (!data?.url) {
           return;
         }
-        // filter removes leading/trailing slash
-        const segments = data.url.split('/').filter(Boolean);
+        const segments = data.url
+          .split('/')
+          // remove leading/trailing slash
+          .filter(Boolean);
         return { page: segments };
       })
-      // ignores page with no URL
+      // ignore pages with no URL
       .filter(Boolean)
   );
 }
@@ -49,11 +32,13 @@ export default async function Page({
 }: {
   params: { page: string[] };
 }) {
+  const content = await builder
+    .get('page', { url: '/' + page.join('/') })
+    .promise();
   return (
     <main>
-      <h1>Path:</h1>
-      {page.join('/')}
-      <MyCustomComponent />
+      <h1>Path: /{page.join('/')}</h1>
+      <BuilderClient model="page" content={content} />
     </main>
   );
 }

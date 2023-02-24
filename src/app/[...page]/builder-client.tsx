@@ -1,8 +1,15 @@
 'use client';
 
-import { Builder } from '@builder.io/react';
+import { Builder, builder, BuilderComponent } from '@builder.io/react';
+import { BuilderComponentProps } from '@builder.io/react/dist/types/src/components/builder-component.component';
 //  This is an example of registering a custom component to be used in Builder.io.
 //  You would typically do this in the file where the component is defined.
+
+builder.init(process.env.NEXT_PUBLIC_BUILDER_IO_KEY as string);
+
+export function BuilderClient(props: BuilderComponentProps) {
+  return <BuilderComponent {...props} />;
+}
 
 export const MyCustomComponent = (props) => (
   <div>
