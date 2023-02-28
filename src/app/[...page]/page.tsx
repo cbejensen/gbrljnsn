@@ -1,12 +1,11 @@
-import { builder } from '@builder.io/sdk';
 import React from 'react';
 
-import { BuilderClient } from './builder-client';
+import { builderSSR } from '@/builder/ssr';
 
-builder.init(process.env.NEXT_PUBLIC_BUILDER_IO_KEY as string);
+import { BuilderClient } from '../../builder/BuilderClient';
 
 export async function generateStaticParams() {
-  const pages = await builder.getAll('page', {
+  const pages = await builderSSR.getAll('page', {
     fields: 'data.url',
     options: { noTargeting: true },
   });
@@ -32,7 +31,7 @@ export default async function Page({
 }: {
   params: { page: string[] };
 }) {
-  const content = await builder
+  const content = await builderSSR
     .get('page', { url: '/' + page.join('/') })
     .promise();
   return (
