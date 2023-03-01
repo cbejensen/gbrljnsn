@@ -8,17 +8,20 @@ interface NavLink {
 }
 
 export async function Header() {
-  const navLinks = await builderSSR.getAll('nav-link');
+  const data = await builderSSR.getAll('nav-links');
+  console.log(data);
+  const {
+    data: { links },
+  } = data[0];
+  console.log(links);
   return (
     <header>
       <ul className="flex gap-6 py-8 px-4">
-        {navLinks
-          .map(({ data }) => data as NavLink)
-          .map(({ text, url }) => (
-            <li key={url}>
-              <Link href={url as Route}>{text}</Link>
-            </li>
-          ))}
+        {links.map(({ text, url }) => (
+          <li key={url}>
+            <Link href={url as Route}>{text}</Link>
+          </li>
+        ))}
       </ul>
     </header>
   );
