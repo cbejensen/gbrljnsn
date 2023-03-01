@@ -11,7 +11,7 @@ export async function Header() {
   const navLinks = await builderSSR.getAll('nav-link');
   return (
     <header>
-      <ul>
+      <ul className="flex gap-6 py-8 px-4">
         {navLinks
           .map(({ data }) => data as NavLink)
           .map(({ text, url }) => (
