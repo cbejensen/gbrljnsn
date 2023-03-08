@@ -1,3 +1,4 @@
+import { Route } from 'next';
 import Link from 'next/link';
 
 import { builderSSR } from '@/builder/ssr';
