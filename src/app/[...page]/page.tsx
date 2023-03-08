@@ -35,9 +35,9 @@ export default async function Page({
     .get('page', { url: '/' + page.join('/') })
     .promise();
   return (
-    <main>
+    <>
       <h1>Path: /{page.join('/')}</h1>
       <BuilderClient model="page" content={content} />
-    </main>
+    </>
   );
 }

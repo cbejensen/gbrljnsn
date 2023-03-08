@@ -13,18 +13,20 @@ export async function Header() {
 
   return (
     <header>
-      <ul className="flex gap-6 py-8 px-4 text-sm">
-        <li className="mr-8">
-          <Link href="/" className="p-1 text-gray-500">
-            Gabriel Jensen
-          </Link>
-        </li>
-        {links.map(({ text, url }) => (
-          <li key={url}>
-            <NavLink href={url as Route}>{text}</NavLink>
+      <nav>
+        <ul className="flex gap-6 py-8 px-4 text-sm">
+          <li className="mr-8">
+            <Link href="/" className="p-1 text-gray-500">
+              Gabriel Jensen
+            </Link>
           </li>
-        ))}
-      </ul>
+          {links.map(({ text, url }) => (
+            <li key={url}>
+              <NavLink href={url as Route}>{text}</NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }
