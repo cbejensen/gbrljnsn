@@ -2,6 +2,7 @@ import React from 'react';
 
 import { builderSSR } from '@/builder/ssr';
 
+// import { BuilderClient } from '../../builder/BuilderClient';
 import { BuilderClient } from '../../builder/BuilderClient';
 
 export async function generateStaticParams() {
@@ -31,13 +32,14 @@ export default async function Page({
 }: {
   params: { page: string[] };
 }) {
-  const content = await builderSSR
-    .get('page', { url: '/' + page.join('/') })
-    .promise();
+  // const content = await builderSSR
+  //   .get('page', { url: '/' + page.join('/') })
+  //   .promise();
   return (
     <>
       <h1>Path: /{page.join('/')}</h1>
-      <BuilderClient model="page" content={content} />
+      <BuilderClient url={'/' + page.join('/')} />
+      {/* <BuilderClient model="page" content={content} /> */}
     </>
   );
 }

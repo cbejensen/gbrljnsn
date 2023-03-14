@@ -1,14 +1,28 @@
 'use client';
 
-import { Builder, builder, BuilderComponent } from '@builder.io/react';
-import { BuilderComponentProps } from '@builder.io/react/dist/types/src/components/builder-component.component';
+import {
+  Builder,
+  builder,
+  BuilderComponent,
+  BuilderContent,
+} from '@builder.io/react';
+import { useEffect, useState } from 'react';
 //  This is an example of registering a custom component to be used in Builder.io.
 //  You would typically do this in the file where the component is defined.
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_IO_KEY as string);
 
-export function BuilderClient(props: BuilderComponentProps) {
-  return <BuilderComponent {...props} />;
+export function BuilderClient({ url }: { url: string }) {
+  const [content, setContent] = useState<BuilderContent | null>(null);
+  useEffect(() => {
+    async function getContent() {
+      const res = await builder.get('page', { url }).promise();
+      setContent(res);
+    }
+    getContent();
+  }, [url]);
+
+  return content ? <BuilderComponent model="page" {...content} /> : null;
 }
 
 export const MyCustomComponent = (props) => (
