@@ -13,8 +13,8 @@ export function NavLink({ children, href }: NavLinkProps) {
   return (
     <Link
       href={href}
-      className={`p-1 ${
-        href === pathname ? 'bg-black hover:text-green-700' : ''
+      className={`p-1 hover:text-primary ${
+        href === pathname ? 'bg-black' : ''
       }`}
     >
       {children}

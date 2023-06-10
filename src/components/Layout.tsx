@@ -10,7 +10,7 @@ export function Layout({
 }) {
   return (
     <div className={`min-h-screen flex ${className}`}>
-      <div className="w-[30px] bg-[#72a99c]"></div>
+      <div className="w-[30px] bg-primary"></div>
       <div className="flex-1">
         <div className="flex flex-col h-full mx-8">
           <Header />
